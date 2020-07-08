@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -13,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,6 +47,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.ui.IconGenerator;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -90,6 +95,7 @@ public class MapDemoActivity extends AppCompatActivity implements GoogleMap.OnMa
                     loadMap(map);
                 }
             });
+
         } else {
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
@@ -108,6 +114,27 @@ public class MapDemoActivity extends AppCompatActivity implements GoogleMap.OnMa
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public Bitmap getMarker() {
+        IconGenerator iconGen = new IconGenerator(this);
+
+        // Define the size you want from dimensions file
+       int shapeSize = getResources().getDimensionPixelSize(R.dimen.custom_marker_size);
+
+        Drawable shapeDrawable = ResourcesCompat.getDrawable(this.getResources(),
+                R.drawable.maps_icon, null);
+        iconGen.setBackground(shapeDrawable);
+
+        // Create a view container to set the size
+        View view = new View(this);
+        view.setLayoutParams(new ViewGroup.LayoutParams(shapeSize, shapeSize));
+        iconGen.setContentView(view);
+
+        // Create the bitmap
+        Bitmap bitmap = iconGen.makeIcon();
+
+        return bitmap;
     }
 
     @Override
