@@ -3,7 +3,7 @@ MapTracker
 
 A simple Google Maps Android API v2 Demo app. This app helps us test if we have the play services properly setup on our emulator. For detailed installation instructions, check [this Maps guide](https://github.com/thecodepath/android_guides/wiki/Google-Maps-Fragment-Guide)
 
-!(Walkthough)[walkthrough.gif]
+![Walkthrough][(walkthrough.gif)
 
 MapTracker User Stories/Features: 
 * [X] App open Google Maps within the Android phone with the help of the Maps SDK
